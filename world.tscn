@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://ckavqb25bdaul"]
 
 [ext_resource type="PackedScene" uid="uid://ckudr8chj1kgo" path="res://player.tscn" id="1_fj7yv"]
-[ext_resource type="Script" uid="uid://drlldp7l6q0o4" path="res://player.gd" id="2_tlwt5"]
 
 [sub_resource type="Environment" id="Environment_g4v7s"]
 
@@ -17,9 +16,8 @@ transform = Transform3D(1, 0, 0, 0, 0.80104506, 0.59860414, 0, -0.59860414, 0.80
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=909235596]
 environment = SubResource("Environment_g4v7s")
 
-[node name="player" parent="." unique_id=1834096749 instance=ExtResource("1_fj7yv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4705315, 1.5, 0.4152441)
-script = ExtResource("2_tlwt5")
-
 [node name="Camera3D" type="Camera3D" parent="." unique_id=71091035]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8337679, 2.7609882, 6.54055)
+
+[node name="player" parent="." unique_id=1834096749 instance=ExtResource("1_fj7yv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6772184, 1.5, -1.9541855)
