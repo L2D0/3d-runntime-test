@@ -14,3 +14,12 @@ shape = SubResource("CapsuleShape3D_g4v7s")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1091058149]
 mesh = SubResource("CapsuleMesh_g4v7s")
+
+[node name="CameraPivot" type="Node3D" parent="." unique_id=1932564801]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="SpringArm3D" type="SpringArm3D" parent="CameraPivot" unique_id=916567558]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0, 0)
+spring_length = 3.0
+
+[node name="XRCamera3D" type="XRCamera3D" parent="CameraPivot/SpringArm3D" unique_id=503493915]
