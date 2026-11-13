@@ -1,4 +1,15 @@
+
 extends CharacterBody3D
+
+const TURN_SPEED = 10.0
+const AIM_SPEED_MULT = 0.6
+const CAMERA_DISTANCE = 3.0
+const AIM_CAMERA_DISTANCE = 1.8
+const ZOOM_SPEED = 10.0
+
+var is_aiming = false
+
+@onready var model = $Model
 
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
@@ -12,6 +23,9 @@ func _ready():
 	spring_arm.add_excluded_object(get_rid())
 
 func _unhandled_input(event):
+	if event.is_action_pressed("switch_shoulder"):
+		shoulder_side *= -1
+
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		pivot.rotation.y -= event.relative.x * MOUSE_SENSITIVITY
 		pivot.rotation.x -= event.relative.y * MOUSE_SENSITIVITY
@@ -21,6 +35,7 @@ func _unhandled_input(event):
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 func _physics_process(delta):
+	is_aiming = Input.is_action_pressed("aim")
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
@@ -29,7 +44,25 @@ func _physics_process(delta):
 
 	var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 	var direction = Vector3(input_dir.x, 0, input_dir.y).rotated(Vector3.UP, pivot.rotation.y)
-	velocity.x = direction.x * SPEED
-	velocity.z = direction.z * SPEED
+	var speed = SPEED * AIM_SPEED_MULT if is_aiming else SPEED
+	velocity.x = direction.x * speed
+	velocity.z = direction.z * speed
+
+	if is_aiming:
+		model.rotation.y = lerp_angle(model.rotation.y, pivot.rotation.y, TURN_SPEED * delta)
+	elif direction.length() > 0:
+		var target_yaw = atan2(-direction.x, -direction.z)
+		model.rotation.y = lerp_angle(model.rotation.y, target_yaw, TURN_SPEED * delta)
 
 	move_and_slide()
+	
+const SHOULDER_OFFSET = 0.6
+const SHOULDER_SWITCH_SPEED = 10.0
+
+var shoulder_side = 1.0
+
+func _process(delta):
+	var target_x = SHOULDER_OFFSET * shoulder_side
+	spring_arm.position.x = lerp(spring_arm.position.x, target_x, SHOULDER_SWITCH_SPEED * delta)
+	var target_distance = AIM_CAMERA_DISTANCE if is_aiming else CAMERA_DISTANCE
+	spring_arm.spring_length = lerp(spring_arm.spring_length, target_distance, ZOOM_SPEED * delta)

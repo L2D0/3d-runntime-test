@@ -10,6 +10,21 @@
 use_collision = true
 size = Vector3(50, 1, 50)
 
+[node name="CSGBox3D2" type="CSGBox3D" parent="." unique_id=470075295]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 24.5, 25.5, 0)
+use_collision = true
+size = Vector3(50, 1, 50)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="." unique_id=546750920]
+transform = Transform3D(0.79598284, 0.60531914, 0, -0.60531914, 0.79598284, 0, 0, 0, 1, -24.733368, 0.9999924, -13)
+use_collision = true
+size = Vector3(50, 1, 25)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="." unique_id=590492782]
+transform = Transform3D(0.49710488, 0.86769044, 0, -0.86769044, 0.49710488, 0, 0, 0, 1, -24.733368, 0.9999924, 12)
+use_collision = true
+size = Vector3(50, 1, 25)
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=282584133]
 transform = Transform3D(1, 0, 0, 0, 0.80104506, 0.59860414, 0, -0.59860414, 0.80104506, 0, 45.5494, 52.27277)
 
@@ -17,4 +32,4 @@ transform = Transform3D(1, 0, 0, 0, 0.80104506, 0.59860414, 0, -0.59860414, 0.80
 environment = SubResource("Environment_g4v7s")
 
 [node name="player" parent="." unique_id=1834096749 instance=ExtResource("1_fj7yv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5816565, 1.5, -4.958496)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.806323, 1.5, -8.055754)
