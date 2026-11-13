@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://ckavqb25bdaul"]
+
+[ext_resource type="PackedScene" uid="uid://ckudr8chj1kgo" path="res://player.tscn" id="1_fj7yv"]
+[ext_resource type="Script" uid="uid://drlldp7l6q0o4" path="res://player.gd" id="2_tlwt5"]
+
+[sub_resource type="Environment" id="Environment_g4v7s"]
+
+[node name="World" type="Node3D" unique_id=1553822876]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1296311156]
+use_collision = true
+size = Vector3(50, 1, 50)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=282584133]
+transform = Transform3D(1, 0, 0, 0, 0.80104506, 0.59860414, 0, -0.59860414, 0.80104506, 0, 45.5494, 52.27277)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=909235596]
+environment = SubResource("Environment_g4v7s")
+
+[node name="player" parent="." unique_id=1834096749 instance=ExtResource("1_fj7yv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4705315, 1.5, 0.4152441)
+script = ExtResource("2_tlwt5")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=71091035]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8337679, 2.7609882, 6.54055)
