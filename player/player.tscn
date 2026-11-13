@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ckudr8chj1kgo"]
 
-[ext_resource type="Script" uid="uid://drlldp7l6q0o4" path="res://player.gd" id="1_4flbx"]
+[ext_resource type="Script" uid="uid://drlldp7l6q0o4" path="res://player/player.gd" id="1_4flbx"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g4v7s"]
 
@@ -23,6 +23,9 @@ mesh = SubResource("CapsuleMesh_g4v7s")
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.3, 0, 0.5, -0.5)
 mesh = SubResource("BoxMesh_57qmd")
 
+[node name="CastPoint" type="Marker3D" parent="Model" unique_id=564637236]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, -0.8)
+
 [node name="CameraPivot" type="Node3D" parent="." unique_id=1932564801]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
@@ -31,3 +34,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0, 0)
 spring_length = 3.0
 
 [node name="Camera3D" type="Camera3D" parent="CameraPivot/SpringArm3D" unique_id=858702381]
+
+[node name="AimRay" type="RayCast3D" parent="CameraPivot/SpringArm3D/Camera3D" unique_id=515453597]
+target_position = Vector3(0, 0, -100)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=357812548]
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer" unique_id=1821943544]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/CenterContainer" unique_id=360699337]
+layout_mode = 2
+text = "+"

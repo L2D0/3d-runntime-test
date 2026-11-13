@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ckavqb25bdaul"]
 
-[ext_resource type="PackedScene" uid="uid://ckudr8chj1kgo" path="res://player.tscn" id="1_fj7yv"]
+[ext_resource type="PackedScene" uid="uid://ckudr8chj1kgo" path="res://player/player.tscn" id="1_fj7yv"]
 
 [sub_resource type="Environment" id="Environment_g4v7s"]
 
@@ -32,4 +32,4 @@ transform = Transform3D(1, 0, 0, 0, 0.80104506, 0.59860414, 0, -0.59860414, 0.80
 environment = SubResource("Environment_g4v7s")
 
 [node name="player" parent="." unique_id=1834096749 instance=ExtResource("1_fj7yv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.806323, 1.5, -8.055754)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.517042, 1.499999, -8.336519)

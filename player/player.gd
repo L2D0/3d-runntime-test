@@ -1,6 +1,11 @@
 
 extends CharacterBody3D
 
+const FIREBALL = preload("res://spells/fireball.tscn")
+
+@onready var cast_point = $Model/CastPoint
+@onready var aim_ray = $CameraPivot/SpringArm3D/Camera3D/AimRay
+
 const TURN_SPEED = 10.0
 const AIM_SPEED_MULT = 0.6
 const CAMERA_DISTANCE = 3.0
@@ -19,10 +24,15 @@ const MOUSE_SENSITIVITY = 0.003
 @onready var spring_arm = $CameraPivot/SpringArm3D
 
 func _ready():
+	aim_ray.add_exception(self)
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	spring_arm.add_excluded_object(get_rid())
 
 func _unhandled_input(event):
+	
+	if event.is_action_pressed("cast"):
+		cast()
+	
 	if event.is_action_pressed("switch_shoulder"):
 		shoulder_side *= -1
 
@@ -66,3 +76,15 @@ func _process(delta):
 	spring_arm.position.x = lerp(spring_arm.position.x, target_x, SHOULDER_SWITCH_SPEED * delta)
 	var target_distance = AIM_CAMERA_DISTANCE if is_aiming else CAMERA_DISTANCE
 	spring_arm.spring_length = lerp(spring_arm.spring_length, target_distance, ZOOM_SPEED * delta)
+
+func cast():
+	model.rotation.y = pivot.rotation.y
+
+	aim_ray.force_raycast_update()
+	var target = aim_ray.get_collision_point() if aim_ray.is_colliding() else aim_ray.to_global(aim_ray.target_position)
+
+	var fireball = FIREBALL.instantiate()
+	get_tree().current_scene.add_child(fireball)
+	fireball.global_position = cast_point.global_position
+	fireball.direction = (target - fireball.global_position).normalized()
+	fireball.caster = self
