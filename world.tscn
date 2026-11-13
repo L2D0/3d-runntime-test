@@ -32,4 +32,4 @@ transform = Transform3D(1, 0, 0, 0, 0.80104506, 0.59860414, 0, -0.59860414, 0.80
 environment = SubResource("Environment_g4v7s")
 
 [node name="player" parent="." unique_id=1834096749 instance=ExtResource("1_fj7yv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.517042, 1.499999, -8.336519)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.767302, 1.4999995, -11.299179)

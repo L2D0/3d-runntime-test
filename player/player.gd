@@ -1,6 +1,10 @@
 
 extends CharacterBody3D
 
+const CAMERA_MARGIN = 0.3
+
+@onready var shoulder_ray = $CameraPivot/ShoulderRay
+
 const FIREBALL = preload("res://spells/fireball.tscn")
 
 @onready var cast_point = $Model/CastPoint
@@ -24,6 +28,9 @@ const MOUSE_SENSITIVITY = 0.003
 @onready var spring_arm = $CameraPivot/SpringArm3D
 
 func _ready():
+	
+	shoulder_ray.add_exception(self)
+	
 	aim_ray.add_exception(self)
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	spring_arm.add_excluded_object(get_rid())
@@ -72,11 +79,25 @@ const SHOULDER_SWITCH_SPEED = 10.0
 var shoulder_side = 1.0
 
 func _process(delta):
+	
 	var target_x = SHOULDER_OFFSET * shoulder_side
+
+	shoulder_ray.target_position = Vector3(target_x, 0, 0)
+	shoulder_ray.force_raycast_update()
+	var max_offset = SHOULDER_OFFSET
+	if shoulder_ray.is_colliding():
+		var hit_distance = shoulder_ray.global_position.distance_to(shoulder_ray.get_collision_point())
+		max_offset = max(hit_distance - CAMERA_MARGIN, 0.0)
+
 	spring_arm.position.x = lerp(spring_arm.position.x, target_x, SHOULDER_SWITCH_SPEED * delta)
+	if shoulder_side > 0:
+		spring_arm.position.x = min(spring_arm.position.x, max_offset)
+	else:
+		spring_arm.position.x = max(spring_arm.position.x, -max_offset)
+		
 	var target_distance = AIM_CAMERA_DISTANCE if is_aiming else CAMERA_DISTANCE
 	spring_arm.spring_length = lerp(spring_arm.spring_length, target_distance, ZOOM_SPEED * delta)
-
+	
 func cast():
 	model.rotation.y = pivot.rotation.y
 
